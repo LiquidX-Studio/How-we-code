@@ -4,16 +4,17 @@
 This guide describes the software engineering process at LiquidX.
 
 # How should you use this handbook?
+The process described here is largely driven by the strategy described in our [Engineering excellence strategy](./EngineeringExcellenceStrategy.md).
 All engineers at LiquidX studio are *required* to follow the instructions included in this handbook.  Any deviation from this engineering process requires written approval from the head of engineering.
 
-# Before you code
+# 0. Before you code
 Before the coding starts for a new product or feature, do the following:
 1. Read the product requirements file and review the UI changes (if any)
 2. Read and review the developer design document [design doc template](https://docs.google.com/document/d/1SV8qV3bE6zBeEbqtZ22irpXrOC6RLqWXy58AASRK9VY/edit?usp=sharing)
 3. Create appropriate tracking work items on the task board with the work estimates
 
-# Version control
-We follow the Trunk-Based development model for version control.  
+# 1. Single source of truth
+We follow the Trunk-Based development model for version control and have a single source of truth for all software components and modules.  
 ![img](./img/trunkBasedDevelopment.png)
 
 ## Key concepts
@@ -27,7 +28,7 @@ We follow the Trunk-Based development model for version control.
 - Once the release branch is verified by the QA team, it is deployed to the production
 - Release branches are long-lived in case we have to patch/hotfix the production
 
-## Source code repository
+# 2. Source code repository
 Our code is stored in the following repositories:
 - [LiquidX studio](https://github.com/LiquidX-Studio)
 - [Anime Metaverse](https://github.com/anime-metaverse)
@@ -35,7 +36,7 @@ Our code is stored in the following repositories:
 
 > Clone the repo locally to make the change.
 
-# Quality gates
+# 3. Quality gates
 ## Static analysis
 Before starting the code review use the following static analysis tool to check the formatting and style of your code.
 
@@ -46,7 +47,7 @@ Before starting the code review use the following static analysis tool to check 
 ## Unit test coverage
 If you are writing backend code (e.g., APIs, web services), your code should have unit test coverage of > 90%.
 
-## Dev testing
+# 4. Dev testing
 You are responsible for testing the code/feature locally and or in the dev environment.
 
 ## Pull requests
@@ -57,7 +58,7 @@ Once the dev testing is completed, create a pull request to merge your code to t
 ## Code review
 All code checkins require *at least 2* sign-offs from the reviewers before they can be merged into the `main` branch.
 
-# Deployment process
+# 5. Deployment
 ## Release branch creation
 The devops team will continually create release branches from the main and deploy it to the Release environment.
 
@@ -73,8 +74,8 @@ Your changes will be deployed in the following path:
 
 > *Ring 0* --> *Ring 1* --> *Ring 2* --> *Ring 3*
 
-# Continuous Integration (CI) and Continuous Delivery (CD)
-Our repositories are integrated with the build and deployment pipelines of [CircleCI](https://circleci.com/).
+# 6. Continuous Integration (CI) and Continuous Delivery (CD)
+Our repositories are integrated with the build and deployment pipelines of the [CircleCI](https://circleci.com/) app.
 
 ## CI
 When a pull request is merged to the main, it triggers the build in our CI/CD tool.  The build will fail if even a single unit test fails.
@@ -88,6 +89,17 @@ The risk of deploying new feature or code is minimized by using a [canary releas
 - Each change is gated by a feature flag and is initially released to a small subset of users
 - In case of a regression or major issue, the feature is toggled off and the user experience remains intact
 - The feature is made available to everyone once it has been tested in production
+
+# 7. Hotfixes and patching
+Only in case of a __critical__ or __major incident__ ([see SLA definition](./EngineeringExcellenceStrategy.md)) we will patch our production deployment.
+
+- Hotfix/patching requires prior approval of the head of engineering 
+- Our devops team will create a staging branch from production
+- Developers will make changes to that staging branch using a pull request
+- The staging branch is deployed in the staging environment for our QA team to test
+- Once the dev testing is completed and the QA verification is completed, the change is deployed to the production
+- QA team will verify the change in production to ensure there are no regressions
+- Finally, the hotfix changes are integrated in the main branch following the regular code review/testing process
 
 # References
 - [Trunk-based development](https://trunkbaseddevelopment.com/continuous-integration/)
