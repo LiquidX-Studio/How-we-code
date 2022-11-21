@@ -29,29 +29,27 @@ We follow the Trunk-Based development model for version control and have a singl
 - Release branches are long-lived in case we have to patch/hotfix the production
 
 # 2. Source code repository
-Our code is stored in the following repositories:
+All changes that are deployed in the production (e.g., aws lambda scripts, SQL queries to create table/schema) is stored in our code repositories:
 - [LiquidX studio](https://github.com/LiquidX-Studio)
 - [Anime Metaverse](https://github.com/anime-metaverse)
 - [Pixelmon](https://github.com/Pixelation-Labs)
 
-> Clone the repo locally to make the change.
+# 3. Making a change
+When you make any changes, you are required to ensure the quality of your changes using the following steps __before__ you raise a pull request and the code review process. 
 
-# 3. Quality gates
-## Static analysis
-Before starting the code review use the following static analysis tool to check the formatting and style of your code.
-
+## Step 3.1: Static analysis
 - Typescript/ Javascript - [eslint](https://eslint.org/docs/latest/user-guide/command-line-interface)
 - Python [Pyflakes](https://pypi.org/project/pyflakes/)
 - Solidity [slither](https://github.com/crytic/slither)
 
-## Unit test coverage
+## Step 3.2: Unit test coverage
 If you are writing backend code (e.g., APIs, web services), your code should have unit test coverage of > 90%.
 
-# 4. Dev testing
+## Step 3.3: Dev testing
 You are responsible for testing the code/feature locally and or in the dev environment.
 
-## Pull requests
-Once the dev testing is completed, create a pull request to merge your code to the `main` branch.
+# 4. Create Pull requests
+When you have completed static analysis, unit testing, and dev testing, create a pull request on the main branch.
 
 > Never check in code that will break existing features - use feature flighting!
 
@@ -63,16 +61,14 @@ All code checkins require *at least 2* sign-offs from the reviewers before they 
 The devops team will continually create release branches from the main and deploy it to the Release environment.
 
 ## Deployment rings 
-All code is deployed in the following rings (or environments):
+All code changes will progress along the deployment path to be deployed into production:
 1. Ring 0 - developer's computer
 2. Ring 1 - Dev environment
 3. Ring 2 - Release environment
 4. Ring (Staging) - Staging environment used only for testing Hotfixes
 5. Ring 3 - Production environment
 
-Your changes will be deployed in the following path:
-
-> *Ring 0* --> *Ring 1* --> *Ring 2* --> *Ring 3*
+![img](./img/DeploymentRings.png)
 
 # 6. Continuous Integration (CI) and Continuous Delivery (CD)
 Our repositories are integrated with the build and deployment pipelines of the [CircleCI](https://circleci.com/) app.
