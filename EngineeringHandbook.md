@@ -23,10 +23,10 @@ We follow the Trunk-Based development model for version control and have a singl
 - Release branches are created from the main branch
 - Release branches are tagged with *major.minor.patch* version number `(000.000.000)`
   - Major version is incremented for new features or breaking changes
-  - Minor version number is incremented for incremental feature updates
-  - Patch version numbers are incremented for hotfix/patch
-- Once the release branch is verified by the QA team, it is deployed to the production
-- Release branches are long-lived in case we have to patch/hotfix the production
+  - Minor version number is incremented for feature updates
+  - Patch version numbers are incremented *only* for hotfix/patch
+- After QA verification, the release branch is deployed into the production
+  - Release branches are long-lived - we may use that to do root-cause analysis for incidents
 
 # 2. Source code repository
 All changes that are deployed in the production (e.g., aws lambda scripts, SQL queries to create table/schema) is stored in our code repositories:
@@ -45,7 +45,7 @@ When you make any changes, you are required to ensure the quality of your change
 ## Step 3.2: Unit test coverage
 If you are writing backend code (e.g., APIs, web services), your code should have unit test coverage of $> 90%$.  For smart contracts, the unit test coverage should be 100%.
 
-Your change should never break the existing unit tests.  Changes with the broken unit tests will be blocked from getting deployed in the production.
+Your change should not break the existing unit tests.  Changes with the broken unit tests will be blocked from getting deployed in the production.
 
 ## Step 3.3: Dev testing
 You are responsible for testing the code/feature locally and or in the dev environment.
@@ -64,11 +64,11 @@ The devops team will continually create release branches from the main and deplo
 
 ## Deployment rings 
 All code changes will progress along the deployment path to be deployed into production:
-1. Ring 0 - developer's computer
-2. Ring 1 - Dev environment
-3. Ring 2 - Release environment
-4. Ring (Staging) - Staging environment used only for testing Hotfixes
-5. Ring 3 - Production environment
+0. Ring 0 - developer's computer
+1. Ring 1 - Dev environment
+2. Ring 2 - Release environment
+3. Ring (Staging) - Staging environment used only for testing Hotfixes
+4. Ring 3 - Production environment
 
 ![img](./img/DeploymentRings.png)
 
@@ -82,13 +82,15 @@ When a pull request is merged to the main, it triggers the build in our CI/CD to
 - When your pull request is merged to the main, it automatically is deployed in the dev environment
 - DevOps team will continually create release branches from the main branch
 
-### Canary release
+# 7. Production Deployment
+
+## Canary release
 The risk of deploying new feature or code is minimized by using a [canary release](https://martinfowler.com/bliki/CanaryRelease.html) approach
 - Each change is gated by a feature flag and is initially released to a small subset of users
 - In case of a regression or major issue, the feature is toggled off and the user experience remains intact
 - The feature is made available to everyone once it has been tested in production
 
-# 7. Hotfixes and patching
+# Hotfixes and patching
 Only in case of a __critical__ or __major incident__ ([see SLA definition](./EngineeringExcellenceStrategy.md)) we will patch our production deployment.
 
 - Hotfix/patching requires prior approval of the head of engineering 
