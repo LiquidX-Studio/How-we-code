@@ -5,7 +5,7 @@ This guide describes the software engineering process at LiquidX.
 
 # How should you use this handbook?
 The process described here is largely driven by the strategy described in our [Engineering excellence strategy](./EngineeringExcellenceStrategy.md).
-All engineers at LiquidX studio are *required* to follow the instructions included in this handbook.  Any deviation from this engineering process requires written approval from the head of engineering.
+All engineers at LiquidX studio are *required* to follow the instructions included in this handbook.  __Any__ deviation from this engineering process requires *prior* approval from the head of engineering.
 
 # 0. Before you code
 Before the coding starts for a new product or feature, do the following:
@@ -43,7 +43,9 @@ When you make any changes, you are required to ensure the quality of your change
 - Solidity [slither](https://github.com/crytic/slither)
 
 ## Step 3.2: Unit test coverage
-If you are writing backend code (e.g., APIs, web services), your code should have unit test coverage of > 90%.
+If you are writing backend code (e.g., APIs, web services), your code should have unit test coverage of $> 90%$.  For smart contracts, the unit test coverage should be 100%.
+
+Your change should never break the existing unit tests.  Changes with the broken unit tests will be blocked from getting deployed in the production.
 
 ## Step 3.3: Dev testing
 You are responsible for testing the code/feature locally and or in the dev environment.
