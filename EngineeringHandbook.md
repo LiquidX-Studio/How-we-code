@@ -60,7 +60,7 @@ All code checkins require *at least 2* sign-offs from the reviewers before they 
 
 # 5. Deployment
 ## Release branch creation
-The devops team will continually create release branches from the main and deploy it to the Release environment.
+The devops team will *continually* create release branches from the main and deploy it to the Release environment.
 
 ## Deployment rings 
 All code changes will progress along the deployment path to be deployed into production:
@@ -83,6 +83,8 @@ When a pull request is merged to the main, it triggers the build in our CI/CD to
 - DevOps team will continually create release branches from the main branch
 
 # 7. Production Deployment
+## WAR room
+All changes destined for the production environment requires WAR room form submission and approvals.  Email/phone approval is sufficient in case of a critical production incident.
 
 ## Canary release
 The risk of deploying new feature or code is minimized by using a [canary release](https://martinfowler.com/bliki/CanaryRelease.html) approach
