@@ -51,7 +51,7 @@ You are __required__ to do the following __before__ you raise a pull request and
   - Python [Pyflakes](https://pypi.org/project/pyflakes/)
   - Solidity [slither](https://github.com/crytic/slither)
 
-## Step 3.2: Unit test coverage
+## Step 3.2: Unit testing
 If you are writing backend code (e.g., APIs, web services), your code should have unit test coverage of $> 90%$.  For smart contracts, the unit test coverage should be 100%.
 
 Your change should not break the existing unit tests.  Changes with the broken unit tests will be blocked from getting deployed in the production.
