@@ -11,7 +11,8 @@ All engineers at LiquidX studio are *required* to follow the instructions includ
 Before the coding starts for a new product or feature, do the following:
 1. Read the product requirements file and review the UI changes (if any)
 2. Read and review the developer design document [design doc template](https://docs.google.com/document/d/1SV8qV3bE6zBeEbqtZ22irpXrOC6RLqWXy58AASRK9VY/edit?usp=sharing)
-3. Create appropriate tracking work items on the task board with the work estimates
+3. Create tracking work item on the task board 
+
 
 # 1. Single source of truth
 We follow the Trunk-Based development model for version control and have a single source of truth for all software components and modules.  
@@ -28,19 +29,27 @@ We follow the Trunk-Based development model for version control and have a singl
 - After QA verification, the release branch is deployed into the production
   - Release branches are long-lived - we may use that to do root-cause analysis for incidents
 
-# 2. Source code repository
-All changes that are deployed in the production (e.g., aws lambda scripts, SQL queries to create table/schema) is stored in our code repositories:
+# 2. Source code 
+All changes that are deployed in the production (e.g., aws lambda scripts, SQL queries to create table/schema) are stored in our code repositories:
 - [LiquidX studio](https://github.com/LiquidX-Studio)
 - [Anime Metaverse](https://github.com/anime-metaverse)
 - [Pixelmon](https://github.com/Pixelation-Labs)
 
-# 3. Making a change
-When you make any changes, you are required to ensure the quality of your changes using the following steps __before__ you raise a pull request and the code review process. 
+## Coding style
+We recommend you use the following coding style:
+- [Solidity](https://github.com/OpenZeppelin/code-style)
+- [Typescript](https://google.github.io/styleguide/tsguide.html)
+- [Python](https://peps.python.org/pep-0008/)
 
-## Step 3.1: Static analysis
-- Typescript/ Javascript - [eslint](https://eslint.org/docs/latest/user-guide/command-line-interface)
-- Python [Pyflakes](https://pypi.org/project/pyflakes/)
-- Solidity [slither](https://github.com/crytic/slither)
+# 3. Making a change
+You are __required__ to do the following __before__ you raise a pull request and start the code review process.
+
+## Step 3.1: Formatting and Static analysis
+- Format using IDE/editor and a code formatter e.g., [prettier](https://prettier.io/)
+- Static analysis
+  - Typescript/ Javascript - [eslint](https://eslint.org/docs/latest/user-guide/command-line-interface)
+  - Python [Pyflakes](https://pypi.org/project/pyflakes/)
+  - Solidity [slither](https://github.com/crytic/slither)
 
 ## Step 3.2: Unit test coverage
 If you are writing backend code (e.g., APIs, web services), your code should have unit test coverage of $> 90%$.  For smart contracts, the unit test coverage should be 100%.
@@ -86,14 +95,14 @@ When a pull request is merged to the main, it triggers the build in our CI/CD to
 ## WAR room
 All changes destined for the production environment requires WAR room form submission and approvals.  Email/phone approval is sufficient in case of a critical production incident.
 
-## Canary release
+## Feature Management and Canary releases
 The risk of deploying new feature or code is minimized by using a [canary release](https://martinfowler.com/bliki/CanaryRelease.html) approach
-- Each change is gated by a feature flag and is initially released to a small subset of users
+- Each change is gated by a feature flag and is initially released to a small subset of users [see reference](https://github.com/Unleash/unleash-client-node)
 - In case of a regression or major issue, the feature is toggled off and the user experience remains intact
 - The feature is made available to everyone once it has been tested in production
 
 # Hotfixes and patching
-Only in case of a __critical__ or __major incident__ ([see SLA definition](./EngineeringExcellenceStrategy.md)) we will patch our production deployment.
+Only in case of a __critical__ or a __major production incident__ ([see our SLA definition](./EngineeringExcellenceStrategy.md)) we will patch our production deployment.
 
 - Hotfix/patching requires prior approval of the head of engineering 
 - Our devops team will create a staging branch from production
