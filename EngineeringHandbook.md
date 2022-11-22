@@ -36,7 +36,9 @@ All changes that are deployed in the production (e.g., aws lambda scripts, SQL q
 - [Pixelmon](https://github.com/Pixelation-Labs)
 
 ## Coding style
-We recommend you use the following coding style:
+Follow [SOLID](https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/) principle, use [clean coding](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29)
+
+It is strongly recommended to follow a standard coding style:
 - [Solidity](https://github.com/OpenZeppelin/code-style)
 - [Typescript](https://google.github.io/styleguide/tsguide.html)
 - [Python](https://peps.python.org/pep-0008/)
