@@ -38,7 +38,7 @@ All changes that are deployed in the production (e.g., aws lambda scripts, SQL q
 ## Coding style
 Follow [SOLID](https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/) principle, use [clean coding](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29)
 
-It is strongly recommended to follow a standard coding style:
+You are strongly recommended to follow a standard coding style:
 - [Solidity](https://github.com/OpenZeppelin/code-style)
 - [Typescript](https://google.github.io/styleguide/tsguide.html)
 - [Python](https://peps.python.org/pep-0008/)
@@ -70,18 +70,18 @@ When you have completed static analysis, unit testing, and dev testing, create a
 All code checkins require *at least 2* sign-offs from the reviewers before they can be merged into the `main` branch.
 
 # 5. Deployment
-## Release branch creation
-The devops team will *continually* create release branches from the main and deploy it to the Release environment.
-
 ## Deployment rings 
 All code changes will progress along the deployment path to be deployed into production:
 0. Ring 0 - developer's computer
 1. Ring 1 - Dev environment
-2. Ring 2 - Release environment
+2. Ring 2 - Release environment (replica of the production)
 3. Ring (Staging) - Staging environment used only for testing Hotfixes
 4. Ring 3 - Production environment
 
 ![img](./img/DeploymentRings.png)
+
+## Deployment and testing in the Release environment
+The devops team will *continually* create release branches from the main and deploy it to the Release environment.
 
 # 6. Continuous Integration (CI) and Continuous Delivery (CD)
 Our repositories are integrated with the build and deployment pipelines of the [CircleCI](https://circleci.com/) app.
@@ -91,11 +91,12 @@ When a pull request is merged to the main, it triggers the build in our CI/CD to
 
 ## CD
 - When your pull request is merged to the main, it automatically is deployed in the dev environment
-- DevOps team will continually create release branches from the main branch
+- DevOps team will *continually* create release branches from the main branch
 
 # 7. Production Deployment
-## WAR room
-All changes destined for the production environment requires WAR room form submission and approvals.  Email/phone approval is sufficient in case of a critical production incident.
+## WAR room approval
+- All changes destined for the production environment requires the approval of the [WAR room form](https://forms.gle/DF6RWTd4AAAEigdW9).
+- Email/phone approval is sufficient in case of a critical production incident.
 
 ## Feature Management and Canary releases
 The risk of deploying new feature or code is minimized by using a [canary release](https://martinfowler.com/bliki/CanaryRelease.html) approach
@@ -106,13 +107,14 @@ The risk of deploying new feature or code is minimized by using a [canary releas
 # Hotfixes and patching
 Only in case of a __critical__ or a __major production incident__ ([see our SLA definition](./EngineeringExcellenceStrategy.md)) we will patch our production deployment.
 
-- Hotfix/patching requires prior approval of the head of engineering 
-- Our devops team will create a staging branch from production
-- Developers will make changes to that staging branch using a pull request
+- Hotfix/patching requires __prior approval__ of the head of engineering 
+- Our devops team will create a staging branch which will have the *same* version as the production
+- DevOps team will set the _branch policy__ so that all changes require 1) Pull request and 2) Code Reviews, and 3) Unit testing
+- Developers will make changes to the staging branch using a pull request
 - The staging branch is deployed in the staging environment for our QA team to test
-- Once the dev testing is completed and the QA verification is completed, the change is deployed to the production
+- Once the dev testing *and* QA verification is completed, the change is deployed to the production
 - QA team will verify the change in production to ensure there are no regressions
-- Finally, the hotfix changes are integrated in the main branch following the regular code review/testing process
+- Finally, the hotfix change is integrated in the main branch following the regular code review/testing process
 
 # References
 - [Trunk-based development](https://trunkbaseddevelopment.com/continuous-integration/)
